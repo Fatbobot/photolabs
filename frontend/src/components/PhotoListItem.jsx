@@ -4,18 +4,19 @@ import "../styles/PhotoListItem.scss";
 
 
 const PhotoListItem = (props) => {
-  return(
-    <div className="photo-list-item">
-      <div className="photo-list-item__header">
-        <img className="photo-list-item__profile" src={props.data.profile} alt="Profile" />
-        <div className="photo-list-item__username">{props.data.username}</div>
-      </div>
-      <img className="photo-list-item__image" src={props.data.imageSource} alt="Photo" />
-      <div className="photo-list-item__location">
-        {props.data.location.city}, {props.data.location.country}
+  const { photo } = props;
+  return (
+    <div className="photo-list__item">
+      <img src={photo.imageSource} alt="A photo" />
+      <div className="photo-list__item-details">
+        <img src={photo.profile} alt="Profile" />
+        <div className="photo-list__item-details-text">
+          <h2>{photo.username}</h2>
+          <p>{photo.location.city}, {photo.location.country}</p>
+        </div>
       </div>
     </div>
-  )
+  );
 };
 
 export default PhotoListItem;
