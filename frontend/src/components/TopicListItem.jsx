@@ -12,7 +12,7 @@ const TopicListItem = (props) => {
   const { topic } = props;
   return (
     <div className="topic-list__item">
-      {/* Insert React */}
+      <span>{topic.title}</span>
     </div>
   );
 };
