@@ -6,7 +6,7 @@ import '../styles/HomeRoute.scss';
 const HomeRoute = (props) => {
   const [isLiked, setIsLiked] = useState(false);
   const { mockTopics, mockPhotos } = props;
-  const setLiked = setIsLiked(!isLiked);
+  const setLiked = () => {setIsLiked(!isLiked)};
   return (
     <div className="App">
       <TopNavigationBar topics={mockTopics}/>
