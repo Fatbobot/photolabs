@@ -57,11 +57,17 @@ import "../styles/PhotoList.scss";
 // ];
 
 const PhotoList = (props) => {
-  const {photos, isliked, setLiked} = props
+  const { photos, toggleFavorite, favoritePhotos } = props;
+
   return (
     <ul className="photo-list">
       {photos.map((photo) => (
-        <PhotoListItem key={photo.id} photo={photo} isliked ={isliked} setLiked = {setLiked} />
+        <PhotoListItem 
+          key={photo.id} 
+          photo={photo} 
+          isLiked={favoritePhotos.includes(photo.id)} 
+          toggleFavorite={() => toggleFavorite(photo.id)} 
+        />
       ))}
     </ul>
   );
