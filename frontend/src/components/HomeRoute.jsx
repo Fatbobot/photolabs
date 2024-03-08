@@ -1,16 +1,15 @@
 import React from 'react';
-import PhotoList from 'components/PhotoList';
-import TopNavigationBar from 'components/TopNavigationBar';
-import './App.scss';
-
-
+import PhotoList from './PhotoList';
+import TopNavigationBar from './TopNavigationBar';
+import '../styles/HomeRoute.scss';
 // Note: Rendering a single component to build components in isolation
-const HomeRoute = () => {
+const HomeRoute = (props) => {
+  const { MockTopics, MockPhotos } = props;
   return (
     <div className="App">
-      <TopNavigationBar />
+      <TopNavigationBar topics={MockTopics}/>
       {/*photoItems*/}
-      <PhotoList/>
+      <PhotoList photos={MockPhotos}/>
     </div>
   );
 };

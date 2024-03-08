@@ -1,7 +1,8 @@
 import React from 'react';
-import HomeRoute from 'routes/HomeRoute';
+import HomeRoute from './components/HomeRoute';
 import './App.scss';
-
+import MockPhotos from 'mocks/photos.js';
+import MockTopics from 'mocks/topics.js';
 
 // Note: Rendering a single component to build components in isolation
 const App = () => {
@@ -11,7 +12,7 @@ const App = () => {
   // );
   return (
     <div className="App">
-      <HomeRoute />
+      <HomeRoute MockTopics = {MockTopics} MockPhotos = {MockPhotos}/>
     </div>
   );
 };
