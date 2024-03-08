@@ -12,7 +12,7 @@ const App = () => {
   // );
   return (
     <div className="App">
-      <HomeRoute MockTopics = {MockTopics} MockPhotos = {MockPhotos}/>
+      <HomeRoute mockTopics = {MockTopics} mockPhotos = {MockPhotos}/>
     </div>
   );
 };

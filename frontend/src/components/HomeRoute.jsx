@@ -4,12 +4,12 @@ import TopNavigationBar from './TopNavigationBar';
 import '../styles/HomeRoute.scss';
 // Note: Rendering a single component to build components in isolation
 const HomeRoute = (props) => {
-  const { MockTopics, MockPhotos } = props;
+  const { mockTopics, mockPhotos } = props;
   return (
     <div className="App">
-      <TopNavigationBar topics={MockTopics}/>
+      <TopNavigationBar topics={props.mockTopics}/>
       {/*photoItems*/}
-      <PhotoList photos={MockPhotos}/>
+      <PhotoList photos={props.mockPhotos}/>
     </div>
   );
 };
