@@ -3,11 +3,10 @@ import React, { useState } from 'react';
 import FavIcon from './FavIcon';
 import '../styles/PhotoFavButton.scss';
 
-function PhotoFavButton() {
-  const [isLiked, setIsLiked] = useState(false);
-
+function PhotoFavButton(props) {
+  const [isLiked, setIsLiked] = props
   const handleClick = () => {
-    setIsLiked(!isLiked);
+    setIsLiked();
   };
 
   return (

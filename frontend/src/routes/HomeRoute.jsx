@@ -1,11 +1,17 @@
 import React from 'react';
-
+import PhotoList from '../components/PhotoList';
+import TopNavigationBar from '../components/TopNavigationBar';
 import '../styles/HomeRoute.scss';
-
-const HomeRoute = () => {
+// Note: Rendering a single component to build components in isolation
+const HomeRoute = (props) => {
+  const [isLiked, setIsLiked] = useState(false);
+  const { mockTopics, mockPhotos } = props;
+  const setLiked = setIsLiked(!isLiked);
   return (
-    <div className="home-route">
-      {/* Insert React */}
+    <div className="App">
+      <TopNavigationBar topics={mockTopics}/>
+      {/*photoItems*/}
+      <PhotoList photos={mockPhotos} isLiked = {isLiked} setLiked = {setLiked}/>
     </div>
   );
 };
