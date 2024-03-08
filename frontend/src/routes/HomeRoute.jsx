@@ -7,15 +7,13 @@ const HomeRoute = (props) => {
   const [isLiked, setIsLiked] = useState(false);
   const [favoritePhotos, setFavoritePhotos] = useState([]);
   const { mockTopics, mockPhotos } = props;
-  const toggleLiked = () => {
-    setIsLiked(!isLiked);
-  };
 
   const toggleFavorite = (id) => {
-    setIsLiked(!isLiked);
     if (isLiked) {
+      setIsLiked(false);
       setFavoritePhotos(favoritePhotos.filter(photoId => photoId !== id));
     } else {
+      setIsLiked(true);
       setFavoritePhotos([...favoritePhotos, id]);
     }
   };
