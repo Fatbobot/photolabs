@@ -67,7 +67,6 @@ const PhotoList = (props) => {
           photo={photo} 
           isLiked={favoritePhotos.includes(photo.id)} 
           toggleFavorite={() => toggleFavorite(photo.id)}
-          setDisplayModal={setDisplayModal}
           onPhotoClick={() => onPhotoClick(photo)}
         />
       ))}

@@ -4,10 +4,9 @@ import '../styles/PhotoDetailsModal.scss'
 import closeSymbol from '../assets/closeSymbol.svg';
 
 const PhotoDetailsModal = ({setDisplayModal, singlePhotoDetail}) => {
-  useEffect(() => {
-    console.log(singlePhotoDetail);
-  }, [singlePhotoDetail]);
-
+  if (!singlePhotoDetail) {
+    return null;
+  }
   return (
     <div className="photo-details-modal">
       <button className="photo-details-modal__close-button"
