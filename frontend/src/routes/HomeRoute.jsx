@@ -10,16 +10,14 @@ const HomeRoute = (props) => {
 
   const toggleFavorite = (id) => {
     if (isLiked) {
-      setIsLiked(false);
       setFavoritePhotos(favoritePhotos.filter(photoId => photoId !== id));
     } else {
-      setIsLiked(true);
       setFavoritePhotos([...favoritePhotos, id]);
     }
   };
   return (
     <div className="App">
-      <TopNavigationBar topics={mockTopics}/>
+      <TopNavigationBar isFavPhotoExist={favoritePhotos.length > 0} topics={mockTopics}/>.
       {/*photoItems*/}
       <PhotoList photos={mockPhotos} isLiked={isLiked} toggleFavorite={toggleFavorite} favoritePhotos={favoritePhotos}/> </div>
   );
