@@ -11,12 +11,13 @@ const App = () => {
   const [singlePhotoDetail, setSinglePhotoDetail] = useState(null);
   const handlePhotoClick = (photo) => {
     setSinglePhotoDetail(photo);
-    setDisplayModal(true);
+    setDisplayModal(true)
+    console.log('photo clicked');
   };
   return (
     <div className="App">
       <HomeRoute mockTopics={MockTopics} mockPhotos={MockPhotos} onPhotoClick={handlePhotoClick}/>
-      {displayModal && <PhotoDetailsModal photo={singlePhotoDetail}/>}
+      {displayModal && <PhotoDetailsModal setDisplayModal= {setDisplayModal} photo={singlePhotoDetail}/>}
     </div>
   );
 };

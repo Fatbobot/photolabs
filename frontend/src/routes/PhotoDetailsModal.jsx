@@ -4,6 +4,7 @@ import '../styles/PhotoDetailsModal.scss'
 import closeSymbol from '../assets/closeSymbol.svg';
 
 const PhotoDetailsModal = ({setDisplayModal, singlePhotoDetail}) => {
+  console.log(singlePhotoDetail);
   if (!singlePhotoDetail) {
     return null;
   }

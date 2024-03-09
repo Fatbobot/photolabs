@@ -11,7 +11,7 @@ const PhotoListItem = ({ photo, isLiked, toggleFavorite, onPhotoClick}) => {
         className="photo-list__image" 
         src={photo.urls.regular} 
         alt="A photo" 
-        onClick={() => onPhotoClick(photo)}
+        onClick={() => onPhotoClick(photo, console.log(photo))}
       />
       <div className="photo-list__user-details">
         <img className="photo-list__user-profile" src={photo.user.profile} alt="Profile" />
