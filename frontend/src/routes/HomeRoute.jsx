@@ -9,9 +9,11 @@ const HomeRoute = (props) => {
   const { mockTopics, mockPhotos } = props;
 
   const toggleFavorite = (id) => {
-    if (isLiked) {
+    if (favoritePhotos.includes(id)) {
+      setIsLiked(false);
       setFavoritePhotos(favoritePhotos.filter(photoId => photoId !== id));
     } else {
+      setIsLiked(true);
       setFavoritePhotos([...favoritePhotos, id]);
     }
   };
