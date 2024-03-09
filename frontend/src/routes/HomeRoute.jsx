@@ -6,7 +6,7 @@ import '../styles/HomeRoute.scss';
 const HomeRoute = (props) => {
   const [isLiked, setIsLiked] = useState(false);
   const [favoritePhotos, setFavoritePhotos] = useState([]);
-  const { mockTopics, mockPhotos } = props;
+  const { mockTopics, mockPhotos, setDisplayModal} = props;
 
   const toggleFavorite = (id) => {
     if (favoritePhotos.includes(id)) {
@@ -21,7 +21,7 @@ const HomeRoute = (props) => {
     <div className="App">
       <TopNavigationBar isFavPhotoExist={favoritePhotos.length > 0} topics={mockTopics}/>.
       {/*photoItems*/}
-      <PhotoList photos={mockPhotos} isLiked={isLiked} toggleFavorite={toggleFavorite} favoritePhotos={favoritePhotos}/> </div>
+      <PhotoList photos={mockPhotos} isLiked={isLiked} toggleFavorite={toggleFavorite} favoritePhotos={favoritePhotos} setDisplayModal={setDisplayModal}/> </div>
   );
 };
 

@@ -57,7 +57,7 @@ import "../styles/PhotoList.scss";
 // ];
 
 const PhotoList = (props) => {
-  const { photos, toggleFavorite, favoritePhotos } = props;
+  const { photos, toggleFavorite, favoritePhotos, seDisplayModal } = props;
 
   return (
     <ul className="photo-list">
@@ -66,7 +66,8 @@ const PhotoList = (props) => {
           key={photo.id} 
           photo={photo} 
           isLiked={favoritePhotos.includes(photo.id)} 
-          toggleFavorite={() => toggleFavorite(photo.id)} 
+          toggleFavorite={() => toggleFavorite(photo.id)}
+          setDisplayModal={setDisplayModal}
         />
       ))}
     </ul>
