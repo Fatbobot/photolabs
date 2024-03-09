@@ -3,7 +3,7 @@ import PhotoFavButton from "./PhotoFavButton";
 import "../styles/PhotoListItem.scss";
 
 
-const PhotoListItem = ({ photo, isLiked, toggleFavorite, setDisplayModal}) => {
+const PhotoListItem = ({ photo, isLiked, toggleFavorite, onPhotoClick}) => {
   return (
     <div className="photo-list__item">
       <PhotoFavButton isLiked={isLiked} toggleFavorite={toggleFavorite}/>
@@ -11,7 +11,7 @@ const PhotoListItem = ({ photo, isLiked, toggleFavorite, setDisplayModal}) => {
         className="photo-list__image" 
         src={photo.urls.regular} 
         alt="A photo" 
-        onClick={() => setDisplayModal(photo)}
+        onClick={() => onPhotoClick(photo)}
       />
       <div className="photo-list__user-details">
         <img className="photo-list__user-profile" src={photo.user.profile} alt="Profile" />

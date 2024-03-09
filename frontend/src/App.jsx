@@ -16,7 +16,7 @@ const App = () => {
   return (
     <div className="App">
       <HomeRoute mockTopics={MockTopics} mockPhotos={MockPhotos} onPhotoClick={handlePhotoClick}/>
-      {displayModal && <PhotoDetailsModal photo={singlePhotoDetail} setDisplayModal={setDisplayModal}/>}
+      {displayModal && <PhotoDetailsModal photo={singlePhotoDetail}/>}
     </div>
   );
 };
