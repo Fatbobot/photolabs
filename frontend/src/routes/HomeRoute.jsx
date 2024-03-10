@@ -7,7 +7,6 @@ const HomeRoute = (props) => {
   const [isLiked, setIsLiked] = useState(false);
   const [favoritePhotos, setFavoritePhotos] = useState([]);
   const { mockTopics, mockPhotos, setDisplayModal, onPhotoClick} = props;
-
   const toggleFavorite = (id) => {
     if (favoritePhotos.includes(id)) {
       setIsLiked(false);
