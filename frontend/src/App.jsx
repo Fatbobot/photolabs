@@ -1,7 +1,6 @@
 import React from 'react';
 import HomeRoute from './routes/HomeRoute';
 import './App.scss';
-import MockPhotos from 'mocks/photos.js';
 import MockTopics from 'mocks/topics.js';
 import useApplicationData from './hooks/useApplicationData'; // Import the custom hook
 
@@ -13,11 +12,10 @@ const App = () => {
     closeModal,
     handlePhotoClick,
   } = useApplicationData(); // Use the custom hook
-
   return (
     <div className="App">
       <HomeRoute 
-        mockTopics={MockTopics} 
+        mockTopics={state.topicData} 
         mockPhotos={state.photoData}
         // Pass the state and functions as props
         favoritePhotos={state.favoritePhotos}

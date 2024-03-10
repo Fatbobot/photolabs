@@ -12,13 +12,13 @@ export const ACTIONS = {
   DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS'
 }
 
-function reducer(state, action) {
+const reducer = (state, action) => {
   switch (action.type) {
     case ACTIONS.FAV_PHOTO_ADDED:
       return { ...state, favoritePhotos: [...state.favoritePhotos, action.payload] };
     case ACTIONS.FAV_PHOTO_REMOVED:
       return { ...state, favoritePhotos: state.favoritePhotos.filter(id => id !== action.payload) };
-    case SET_PHOTO_DATA:
+    case ACTIONS.SET_PHOTO_DATA:
       return { ...state, photoData: action.payload };
     case ACTIONS.SET_TOPIC_DATA:
       return { ...state, topicData: action.payload };
@@ -35,11 +35,6 @@ function reducer(state, action) {
 
 const useApplicationData = () => {
   const [state, dispatch] = useReducer( reducer, initialState);
-  useEffect(() => {
-    fetch("/api/photos")
-      .then((res) => res.json())
-      .then((photoData) => dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: photoData }))
-  }, []);
   const updateToFavPhotoIds = (photoId) => {
     if (state.favoritePhotos.includes(photoId)) {
       dispatch({ type: ACTIONS.FAV_PHOTO_REMOVED, payload: photoId });
@@ -47,7 +42,6 @@ const useApplicationData = () => {
       dispatch({ type: ACTIONS.FAV_PHOTO_ADDED, payload: photoId });
     }
   };
-
   const handlePhotoClick = (photo) => {
     dispatch({ type: ACTIONS.SELECT_PHOTO, payload: photo });
     dispatch({ type: ACTIONS.DISPLAY_PHOTO_DETAILS, payload: true });
@@ -56,7 +50,28 @@ const useApplicationData = () => {
   const closeModal = () => {
     dispatch({ type: ACTIONS.DISPLAY_PHOTO_DETAILS, payload: false });
   };
-
+  const getPhotos = () => {
+    fetch("http://localhost:8001/api/photos")
+      .then((res) => res.json())
+      .then((photoData) => {
+        console.log(photoData); // Log the fetched data
+        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: photoData });
+      });
+  }
+  useEffect(() => {
+    getPhotos();
+  }, []);
+  const getTopics = () => {
+    fetch("http://localhost:8001/api/topics")
+      .then((res) => res.json())
+      .then((topicData) => {
+        console.log(topicData); // Log the fetched data
+        dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: topicData });
+      });
+  }
+  useEffect(() => {
+    getTopics();
+  }, []);
   return {
     state,
     updateToFavPhotoIds,
