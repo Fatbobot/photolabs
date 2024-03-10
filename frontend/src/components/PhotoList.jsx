@@ -4,10 +4,10 @@ import "../styles/PhotoList.scss";
 
 
 const PhotoList = (props) => {
-  const { photos, toggleFavorite, favoritePhotos, onPhotoClick} = props;
-  return (
-    <ul className="photo-list">
-      {photos.map((photo) => (
+  const { photos , toggleFavorite, favoritePhotos, onPhotoClick} = props;
+  console.log(photos)
+  var photolist =
+      photos.map((photo) => (
         <PhotoListItem
           key={photo.id}
           photo={photo}
@@ -15,8 +15,11 @@ const PhotoList = (props) => {
           toggleFavorite={() => toggleFavorite(photo.id)}
           onPhotoClick= {() => onPhotoClick(photo)}
         />
-      ))}
-    </ul>
+      ))
+  return (
+    <div className="photo-list">
+      {photolist}
+    </div>
   );
 };
 

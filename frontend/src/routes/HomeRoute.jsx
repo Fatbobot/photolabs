@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import PhotoList from '../components/PhotoList';
 import TopNavigationBar from '../components/TopNavigationBar';
 import '../styles/HomeRoute.scss';
+import PhotoDetailsModal from '../routes/PhotoDetailsModal';
 // Note: Rendering a single component to build components in isolation
 const HomeRoute = (props) => {
   const [isLiked, setIsLiked] = useState(false);
   const [favoritePhotos, setFavoritePhotos] = useState([]);
-  const { mockTopics, mockPhotos, setDisplayModal, onPhotoClick} = props;
+  const { mockTopics, mockPhotos} = props;
   const toggleFavorite = (id) => {
     if (favoritePhotos.includes(id)) {
       setIsLiked(false);
@@ -15,6 +16,12 @@ const HomeRoute = (props) => {
       setIsLiked(true);
       setFavoritePhotos([...favoritePhotos, id]);
     }
+  };
+  const [displayModal, setDisplayModal] = useState(false);
+  const [singlePhotoDetail, setSinglePhotoDetail] = useState(null);
+  const handlePhotoClick = (photo) => {
+    setSinglePhotoDetail(photo);
+    setDisplayModal(true)
   };
   return (
     <div className="App">
@@ -25,8 +32,17 @@ const HomeRoute = (props) => {
       isLiked={isLiked} 
       toggleFavorite={toggleFavorite} 
       favoritePhotos={favoritePhotos} 
-      onPhotoClick={onPhotoClick}
-      /> </div>
+      onPhotoClick={handlePhotoClick}
+      /> 
+
+      {displayModal && <PhotoDetailsModal 
+      setDisplayModal={setDisplayModal}
+      photo={singlePhotoDetail} 
+      isLiked={isLiked} 
+      toggleFavorite={toggleFavorite} 
+      favoritePhotos={favoritePhotos} 
+      onPhotoClick={handlePhotoClick}/>}
+      </div>
   );
 };
 
