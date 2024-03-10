@@ -1,5 +1,8 @@
-import { useReducer } from 'react';
-
+import { useReducer, useEffect } from 'react';
+const initialState = {
+  photoData: [],
+  topicData: []
+}
 export const ACTIONS = {
   FAV_PHOTO_ADDED: 'FAV_PHOTO_ADDED',
   FAV_PHOTO_REMOVED: 'FAV_PHOTO_REMOVED',
@@ -15,7 +18,7 @@ function reducer(state, action) {
       return { ...state, favoritePhotos: [...state.favoritePhotos, action.payload] };
     case ACTIONS.FAV_PHOTO_REMOVED:
       return { ...state, favoritePhotos: state.favoritePhotos.filter(id => id !== action.payload) };
-    case ACTIONS.SET_PHOTO_DATA:
+    case SET_PHOTO_DATA:
       return { ...state, photoData: action.payload };
     case ACTIONS.SET_TOPIC_DATA:
       return { ...state, topicData: action.payload };
@@ -31,8 +34,12 @@ function reducer(state, action) {
 }
 
 const useApplicationData = () => {
-  const [state, dispatch] = useReducer(reducer, { favoritePhotos: [] });
-
+  const [state, dispatch] = useReducer( reducer, initialState);
+  useEffect(() => {
+    fetch("/api/photos")
+      .then((res) => res.json())
+      .then((photoData) => dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: photoData }))
+  }, []);
   const updateToFavPhotoIds = (photoId) => {
     if (state.favoritePhotos.includes(photoId)) {
       dispatch({ type: ACTIONS.FAV_PHOTO_REMOVED, payload: photoId });

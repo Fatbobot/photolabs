@@ -18,7 +18,7 @@ const App = () => {
     <div className="App">
       <HomeRoute 
         mockTopics={MockTopics} 
-        mockPhotos={MockPhotos}
+        mockPhotos={state.photoData}
         // Pass the state and functions as props
         favoritePhotos={state.favoritePhotos}
         updateToFavPhotoIds={updateToFavPhotoIds}

@@ -4,7 +4,7 @@ import TopNavigationBar from '../components/TopNavigationBar';
 import '../styles/HomeRoute.scss';
 import PhotoDetailsModal from '../routes/PhotoDetailsModal';
 // Note: Rendering a single component to build components in isolation
-const HomeRoute = ({ mockTopics, mockPhotos, closeModal}) => {
+const HomeRoute = ({mockTopics, mockPhotos, closeModal}) => {
   const [isLiked, setIsLiked] = useState(false);
   const [favoritePhotos, setFavoritePhotos] = useState([]);
   const [displayModal, setDisplayModal] = useState(false);
