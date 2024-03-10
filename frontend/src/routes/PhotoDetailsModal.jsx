@@ -2,9 +2,8 @@ import React, { useEffect } from 'react';
 import PhotoList from "../components/PhotoList";
 import '../styles/PhotoDetailsModal.scss'
 import closeSymbol from '../assets/closeSymbol.svg';
-
+import PhotoFavButton from 'components/PhotoFavButton';
 const PhotoDetailsModal = ({closeModal, setDisplayModal, photo, isLiked, toggleFavorite, onPhotoClick, favoritePhotos}) => {
-  console.log('photo', photo)
   return (
     <div className="photo-details-modal">
       <button className="photo-details-modal__close-button"
@@ -12,6 +11,10 @@ const PhotoDetailsModal = ({closeModal, setDisplayModal, photo, isLiked, toggleF
         <img className = "photo-details-modal__close-button" src={closeSymbol} alt="close symbol" />
         </button>
         <div className = "photo-details-modal__images">
+          <div>
+            <PhotoFavButton
+              toggleFavorite={toggleFavorite} />
+          </div>
           <img className = "photo-details-modal__image" src={photo.urls.full} alt="selected photo" />
           <h2 className='photo-details-modal__header'></h2>
         <div className= "photo-details-modal__photographer-details">

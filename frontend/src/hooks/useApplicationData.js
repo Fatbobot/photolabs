@@ -72,11 +72,23 @@ const useApplicationData = () => {
   useEffect(() => {
     getTopics();
   }, []);
+
+  const getPhotosByTopic = (topic_id) => {
+    fetch(`http://localhost:8001/api/topics/photos/${topic_id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data); // Log the fetched data
+        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data });
+      })
+      .catch((error) => console.error('Error:', error));
+  }
+
   return {
     state,
     updateToFavPhotoIds,
     closeModal,
     handlePhotoClick,
+    getPhotosByTopic
   };
 };
 

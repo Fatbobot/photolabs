@@ -3,6 +3,7 @@ import PhotoList from '../components/PhotoList';
 import TopNavigationBar from '../components/TopNavigationBar';
 import '../styles/HomeRoute.scss';
 import PhotoDetailsModal from '../routes/PhotoDetailsModal';
+import useApplicationData from '../hooks/useApplicationData';
 // Note: Rendering a single component to build components in isolation
 const HomeRoute = ({mockTopics, mockPhotos, closeModal}) => {
   const [isLiked, setIsLiked] = useState(false);
@@ -25,7 +26,6 @@ const HomeRoute = ({mockTopics, mockPhotos, closeModal}) => {
   return (
     <div className="App">
       <TopNavigationBar isFavPhotoExist={favoritePhotos.length > 0} topics={mockTopics}/>.
-      {/*photoItems*/}
       <PhotoList 
       photos={mockPhotos} 
       isLiked={isLiked} 

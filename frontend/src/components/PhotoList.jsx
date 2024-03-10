@@ -5,7 +5,6 @@ import "../styles/PhotoList.scss";
 
 const PhotoList = (props) => {
   const { photos , toggleFavorite, favoritePhotos, onPhotoClick} = props;
-  console.log(photos)
   var photolist =
       photos.map((photo) => (
         <PhotoListItem
