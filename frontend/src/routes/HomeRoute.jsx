@@ -7,6 +7,7 @@ import PhotoDetailsModal from '../routes/PhotoDetailsModal';
 const HomeRoute = (props) => {
   const [isLiked, setIsLiked] = useState(false);
   const [favoritePhotos, setFavoritePhotos] = useState([]);
+  const [displayModal, setDisplayModal] = useState(false);
   const { mockTopics, mockPhotos} = props;
   const toggleFavorite = (id) => {
     if (favoritePhotos.includes(id)) {
@@ -17,7 +18,6 @@ const HomeRoute = (props) => {
       setFavoritePhotos([...favoritePhotos, id]);
     }
   };
-  const [displayModal, setDisplayModal] = useState(false);
   const [singlePhotoDetail, setSinglePhotoDetail] = useState(null);
   const handlePhotoClick = (photo) => {
     setSinglePhotoDetail(photo);
