@@ -38,7 +38,7 @@ const HomeRoute = ({mockTopics, mockPhotos, closeModal}) => {
       setDisplayModal={setDisplayModal}
       photo={singlePhotoDetail} 
       isLiked={isLiked} 
-      toggleFavorite={toggleFavorite} 
+      toggleFavorite={() => toggleFavorite(singlePhotoDetail.id)} 
       favoritePhotos={favoritePhotos} 
       onPhotoClick={handlePhotoClick}
       closeModal={closeModal}/>}

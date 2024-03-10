@@ -13,6 +13,7 @@ const PhotoDetailsModal = ({closeModal, setDisplayModal, photo, isLiked, toggleF
         <div className = "photo-details-modal__images">
           <div>
             <PhotoFavButton
+              isLiked={isLiked}
               toggleFavorite={toggleFavorite} />
           </div>
           <img className = "photo-details-modal__image" src={photo.urls.full} alt="selected photo" />
