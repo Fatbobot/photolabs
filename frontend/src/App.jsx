@@ -10,8 +10,8 @@ const App = () => {
   const {
     state,
     updateToFavPhotoIds,
-    setPhotoSelected,
-    onClosePhotoDetailsModal,
+    closeModal,
+    handlePhotoClick,
   } = useApplicationData(); // Use the custom hook
 
   return (
@@ -22,8 +22,8 @@ const App = () => {
         // Pass the state and functions as props
         favoritePhotos={state.favoritePhotos}
         updateToFavPhotoIds={updateToFavPhotoIds}
-        setPhotoSelected={setPhotoSelected}
-        onClosePhotoDetailsModal={onClosePhotoDetailsModal}
+        handlePhotoClick={handlePhotoClick}
+        closeModal={closeModal}
       />
     </div>
   );

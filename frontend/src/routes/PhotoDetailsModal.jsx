@@ -3,7 +3,7 @@ import PhotoList from "../components/PhotoList";
 import '../styles/PhotoDetailsModal.scss'
 import closeSymbol from '../assets/closeSymbol.svg';
 
-const PhotoDetailsModal = ({setDisplayModal, photo, isLiked, toggleFavorite, onPhotoClick, favoritePhotos}) => {
+const PhotoDetailsModal = ({closeModal, setDisplayModal, photo, isLiked, toggleFavorite, onPhotoClick, favoritePhotos}) => {
   console.log('photo', photo)
   return (
     <div className="photo-details-modal">

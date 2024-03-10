@@ -4,11 +4,11 @@ import TopNavigationBar from '../components/TopNavigationBar';
 import '../styles/HomeRoute.scss';
 import PhotoDetailsModal from '../routes/PhotoDetailsModal';
 // Note: Rendering a single component to build components in isolation
-const HomeRoute = (props) => {
+const HomeRoute = ({ mockTopics, mockPhotos, closeModal}) => {
   const [isLiked, setIsLiked] = useState(false);
   const [favoritePhotos, setFavoritePhotos] = useState([]);
   const [displayModal, setDisplayModal] = useState(false);
-  const { mockTopics, mockPhotos} = props;
+    const [singlePhotoDetail, setSinglePhotoDetail] = useState(null);
   const toggleFavorite = (id) => {
     if (favoritePhotos.includes(id)) {
       setIsLiked(false);
@@ -18,7 +18,6 @@ const HomeRoute = (props) => {
       setFavoritePhotos([...favoritePhotos, id]);
     }
   };
-  const [singlePhotoDetail, setSinglePhotoDetail] = useState(null);
   const handlePhotoClick = (photo) => {
     setSinglePhotoDetail(photo);
     setDisplayModal(true)
@@ -41,7 +40,8 @@ const HomeRoute = (props) => {
       isLiked={isLiked} 
       toggleFavorite={toggleFavorite} 
       favoritePhotos={favoritePhotos} 
-      onPhotoClick={handlePhotoClick}/>}
+      onPhotoClick={handlePhotoClick}
+      closeModal={closeModal}/>}
       </div>
   );
 };
