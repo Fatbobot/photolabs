@@ -1,4 +1,7 @@
+// Import necessary dependencies
 import { useReducer, useEffect } from 'react';
+
+// Define the initial state
 const initialState = {
   favoritePhotos: [],
   photoData: [],
@@ -6,6 +9,8 @@ const initialState = {
   displayModal: false,
   singlePhotoDetail: null
 }
+
+// Define the action types
 export const ACTIONS = {
   FAV_PHOTO_ADDED: 'FAV_PHOTO_ADDED',
   FAV_PHOTO_REMOVED: 'FAV_PHOTO_REMOVED',
@@ -15,6 +20,7 @@ export const ACTIONS = {
   DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS'
 }
 
+// Define the reducer function
 const reducer = (state, action) => {
   switch (action.type) {
     case ACTIONS.FAV_PHOTO_ADDED:
@@ -30,16 +36,18 @@ const reducer = (state, action) => {
     case ACTIONS.DISPLAY_PHOTO_DETAILS:
       return { ...state, displayModal: action.payload };
     default:
-      throw new Error(
-        `Tried to reduce with unsupported action type: ${action.type}`
-      );
+      throw new Error(`Tried to reduce with unsupported action type: ${action.type}`);
   }
 }
+
+// Define the API URL
 const API_URL = "http://localhost:8001/api";
 
+// Define the useApplicationData custom hook
 const useApplicationData = () => {
-  const [state, dispatch] = useReducer( reducer, initialState);
-  
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  // Define the toggleFavorite function
   const toggleFavorite = (photoId) => {
     if (state.favoritePhotos.includes(photoId)) {
       dispatch({ type: ACTIONS.FAV_PHOTO_REMOVED, payload: photoId });
@@ -48,6 +56,7 @@ const useApplicationData = () => {
     }
   };
 
+  // Define the handlePhotoClick function
   const handlePhotoClick = (photo) => {
     if (photo.similar_photos) {
       dispatch({ type: ACTIONS.SET_SINGLE_PHOTO_DETAIL, payload: photo });
@@ -57,10 +66,13 @@ const useApplicationData = () => {
     }
     dispatch({ type: ACTIONS.DISPLAY_PHOTO_DETAILS, payload: true });
   };
+
+  // Define the closeModal function
   const closeModal = () => {
     dispatch({ type: ACTIONS.DISPLAY_PHOTO_DETAILS, payload: false });
   };
 
+  // Define the getPhotosByTopic function
   const getPhotosByTopic = (topic_id) => {
     fetch(`${API_URL}/topics/photos/${topic_id}`)
       .then((res) => res.json())
@@ -69,28 +81,32 @@ const useApplicationData = () => {
       })
       .catch((error) => console.error('Error:', error));
   }
-  const getPhotos = () => {
-    fetch(`${API_URL}/photos`)
-      .then((res) => res.json())
-      .then((photoData) => {
-        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: photoData });
-      });
-  }
-  
-  const getTopics = () => {
-    fetch(`${API_URL}/topics`)
-      .then((res) => res.json())
-      .then((topicData) => {
+
+  // Define the getTopicsAndPhotos function
+  const getTopicsAndPhotos = () => {
+    // Create an array of fetch promises
+    const fetchPromises = [
+      fetch(`${API_URL}/topics`).then((res) => res.json()),
+      fetch(`${API_URL}/photos`).then((res) => res.json())
+    ];
+
+    // Use Promise.all to wait for all fetch promises to resolve
+    Promise.all(fetchPromises)
+      .then(([topicData, photoData]) => {
+        // Dispatch the SET_TOPIC_DATA action
         dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: topicData });
-      });
+        // Dispatch the SET_PHOTO_DATA action
+        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: photoData });
+      })
+      .catch((error) => console.error('Error:', error));
   }
+
+  // Call the getTopicsAndPhotos function when the component mounts
   useEffect(() => {
-    getTopics();
-  }, []);
-  useEffect(() => {
-    getPhotos();
+    getTopicsAndPhotos();
   }, []);
 
+  // Return the necessary state and functions
   return {
     state,
     toggleFavorite,
@@ -100,4 +116,5 @@ const useApplicationData = () => {
   };
 };
 
+// Export the useApplicationData custom hook as the default export
 export default useApplicationData;
