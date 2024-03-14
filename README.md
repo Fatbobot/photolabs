@@ -7,8 +7,8 @@ With a simple click, you can dive into the details of each photo in a slick moda
 Whether you're a professional photographer, a casual browser, or a fellow developer looking for inspiration, we hope you enjoy the Photolabs experience!
 
 # Photolabs
-![Screenshot of the homepage displaying a grid of various photos](./assets/modalScreenshot.png)
-![Screenshot of a modal view displaying an enlarged version of a selected photo](./assets/photolabsHomePageScreenshot.png)
+![Screenshot of the homepage displaying a grid of various photos](./frontend/src/assets/modalScreenshot.png)
+![Screenshot of a modal view displaying an enlarged version of a selected photo](./frontend/src/assets/photolabsHomePageScreenshot.png)
 ## Setup
 
 Install dependencies with `npm install` in each respective `/frontend` and `/backend`.
