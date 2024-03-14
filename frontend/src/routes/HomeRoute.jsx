@@ -3,42 +3,51 @@ import PhotoList from '../components/PhotoList';
 import TopNavigationBar from '../components/TopNavigationBar';
 import '../styles/HomeRoute.scss';
 import PhotoDetailsModal from '../routes/PhotoDetailsModal';
-import useApplicationData from '../hooks/useApplicationData';
-// Note: Rendering a single component to build components in isolation
-const HomeRoute = ({mockTopics, mockPhotos, closeModal}) => {
-  const [isLiked, setIsLiked] = useState(false);
-  const [favoritePhotos, setFavoritePhotos] = useState([]);
-  const [displayModal, setDisplayModal] = useState(false);
-    const [singlePhotoDetail, setSinglePhotoDetail] = useState(null);
-  const toggleFavorite = (id) => {
-    if (favoritePhotos.includes(id)) {
-      setIsLiked(false);
-      setFavoritePhotos(favoritePhotos.filter(photoId => photoId !== id));
-    } else {
-      setIsLiked(true);
-      setFavoritePhotos([...favoritePhotos, id]);
-    }
-  };
-  const handlePhotoClick = (photo) => {
-    setSinglePhotoDetail(photo);
-    setDisplayModal(true)
-  };
+
+const HomeRoute = ({state, mockTopics, mockPhotos, closeModal, getPhotosByTopic, toggleFavorite, handlePhotoClick}) => {
+  const { favoritePhotos, displayModal, singlePhotoDetail } = state;
+  // const [isLiked, setIsLiked] = useState(false);
+  // const [favoritePhotos, setFavoritePhotos] = useState([]);
+  // const [displayModal, setDisplayModal] = useState(false);
+  // const [singlePhotoDetail, setSinglePhotoDetail] = useState(null);
+  // const toggleFavorite = (id) => {
+  //   if (favoritePhotos.includes(id)) {
+  //     // setIsLiked(false);
+  //     setFavoritePhotos(favoritePhotos.filter(photoId => photoId !== id));
+  //   } else {
+  //     // setIsLiked(true);
+  //     setFavoritePhotos([...favoritePhotos, id]);
+  //   }
+  // };
+  // const handlePhotoClick = (photo) => {
+  //   if (photo.similar_photos) {
+  //     setSinglePhotoDetail(photo);
+  //   } else {
+  //     const matchedPhoto = mockPhotos.find(p => p.id === photo.id);
+  //     setSinglePhotoDetail(matchedPhoto);
+  //   }
+  //   setDisplayModal(true);
+  // };
   return (
     <div className="App">
-      <TopNavigationBar isFavPhotoExist={favoritePhotos.length > 0} topics={mockTopics}/>.
+      <TopNavigationBar 
+      state={state}
+      isFavPhotoExist={favoritePhotos.length > 0} 
+      topics={mockTopics} 
+      getPhotosByTopic={getPhotosByTopic}/>
+
       <PhotoList 
+      state={state}
       photos={mockPhotos} 
-      isLiked={isLiked} 
       toggleFavorite={toggleFavorite} 
       favoritePhotos={favoritePhotos} 
       onPhotoClick={handlePhotoClick}
       /> 
-
-      {displayModal && <PhotoDetailsModal 
-      setDisplayModal={setDisplayModal}
+      {displayModal && <PhotoDetailsModal
+      state={state}
       photo={singlePhotoDetail} 
-      isLiked={isLiked} 
-      toggleFavorite={() => toggleFavorite(singlePhotoDetail.id)} 
+      isLiked={favoritePhotos.includes(singlePhotoDetail.id)} 
+      toggleFavorite={toggleFavorite} 
       favoritePhotos={favoritePhotos} 
       onPhotoClick={handlePhotoClick}
       closeModal={closeModal}/>}

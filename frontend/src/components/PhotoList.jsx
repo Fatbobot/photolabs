@@ -3,10 +3,10 @@ import PhotoListItem from "./PhotoListItem";
 import "../styles/PhotoList.scss";
 
 
-const PhotoList = (props) => {
-  const { photos , toggleFavorite, favoritePhotos, onPhotoClick} = props;
+const PhotoList = ({ photos , toggleFavorite, favoritePhotos, onPhotoClick}) => {
+  const photoVals = typeof photos === 'object' && !Array.isArray(photos) ? Object.values(photos) : photos;
   var photolist =
-      photos.map((photo) => (
+      photoVals.map((photo) => (
         <PhotoListItem
           key={photo.id}
           photo={photo}

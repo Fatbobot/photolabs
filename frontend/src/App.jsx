@@ -1,30 +1,37 @@
+// Import necessary modules and components
 import React from 'react';
 import HomeRoute from './routes/HomeRoute';
 import './App.scss';
-import MockTopics from 'mocks/topics.js';
-import useApplicationData from './hooks/useApplicationData'; // Import the custom hook
+import useApplicationData from './hooks/useApplicationData'; 
 
-// Note: Rendering a single component to build components in isolation
+// Define the App component
 const App = () => {
+  // Destructure the state and functions returned by useApplicationData
   const {
     state,
-    updateToFavPhotoIds,
+    getPhotosByTopic,
+    toggleFavorite,
     closeModal,
     handlePhotoClick,
-  } = useApplicationData(); // Use the custom hook
+  } = useApplicationData();
+
+  // Render the App component
   return (
     <div className="App">
+      {/* Render the HomeRoute component and pass the necessary props */}
       <HomeRoute 
+        state = {state}
         mockTopics={state.topicData} 
         mockPhotos={state.photoData}
-        // Pass the state and functions as props
         favoritePhotos={state.favoritePhotos}
-        updateToFavPhotoIds={updateToFavPhotoIds}
+        toggleFavorite={toggleFavorite}
         handlePhotoClick={handlePhotoClick}
         closeModal={closeModal}
+        getPhotosByTopic={getPhotosByTopic}
       />
     </div>
   );
 };
 
+// Export the App component as the default export
 export default App;

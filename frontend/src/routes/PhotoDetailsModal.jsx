@@ -1,20 +1,20 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PhotoList from "../components/PhotoList";
 import '../styles/PhotoDetailsModal.scss'
 import closeSymbol from '../assets/closeSymbol.svg';
 import PhotoFavButton from 'components/PhotoFavButton';
-const PhotoDetailsModal = ({closeModal, setDisplayModal, photo, isLiked, toggleFavorite, onPhotoClick, favoritePhotos}) => {
+const PhotoDetailsModal = ({closeModal, photo, isLiked, toggleFavorite, onPhotoClick, favoritePhotos}) => {
   return (
     <div className="photo-details-modal">
       <button className="photo-details-modal__close-button"
-      onClick={() => setDisplayModal(false)}>
+      onClick={closeModal}>
         <img className = "photo-details-modal__close-button" src={closeSymbol} alt="close symbol" />
         </button>
         <div className = "photo-details-modal__images">
           <div>
             <PhotoFavButton
               isLiked={isLiked}
-              toggleFavorite={toggleFavorite} />
+              toggleFavorite={() => toggleFavorite(photo.id)} />
           </div>
           <img className = "photo-details-modal__image" src={photo.urls.full} alt="selected photo" />
           <h2 className='photo-details-modal__header'></h2>
@@ -30,11 +30,11 @@ const PhotoDetailsModal = ({closeModal, setDisplayModal, photo, isLiked, toggleF
           <h2 className='photo-details-modal__header'>Similar Photos</h2>
           <div className='photo-details-modal__top-bar'>
             <PhotoList 
-            photos={Object.values(photo.similar_photos)}
+            photos={photo.similar_photos}
             isLiked ={isLiked} 
             toggleFavorite={toggleFavorite} 
-            favoritePhotos={favoritePhotos} 
-            onPhotoClick={onPhotoClick}/>
+            favoritePhotos={favoritePhotos}
+            onPhotoClick={onPhotoClick} />
           </div>
       </div>
     </div>

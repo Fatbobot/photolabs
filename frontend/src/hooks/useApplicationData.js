@@ -1,14 +1,17 @@
 import { useReducer, useEffect } from 'react';
 const initialState = {
+  favoritePhotos: [],
   photoData: [],
-  topicData: []
+  topicData: [],
+  displayModal: false,
+  singlePhotoDetail: null
 }
 export const ACTIONS = {
   FAV_PHOTO_ADDED: 'FAV_PHOTO_ADDED',
   FAV_PHOTO_REMOVED: 'FAV_PHOTO_REMOVED',
   SET_PHOTO_DATA: 'SET_PHOTO_DATA',
   SET_TOPIC_DATA: 'SET_TOPIC_DATA',
-  SELECT_PHOTO: 'SELECT_PHOTO',
+  SET_SINGLE_PHOTO_DETAIL: 'SET_SINGLE_PHOTO_DETAIL',
   DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS'
 }
 
@@ -19,76 +22,81 @@ const reducer = (state, action) => {
     case ACTIONS.FAV_PHOTO_REMOVED:
       return { ...state, favoritePhotos: state.favoritePhotos.filter(id => id !== action.payload) };
     case ACTIONS.SET_PHOTO_DATA:
-      return { ...state, photoData: action.payload };
+      return { ...state, photoData: [...action.payload] };
     case ACTIONS.SET_TOPIC_DATA:
       return { ...state, topicData: action.payload };
-    case ACTIONS.SELECT_PHOTO:
-      return { ...state, selectedPhoto: action.payload };
+    case ACTIONS.SET_SINGLE_PHOTO_DETAIL:
+      return { ...state, singlePhotoDetail: action.payload };
     case ACTIONS.DISPLAY_PHOTO_DETAILS:
-      return { ...state, isModalOpen: action.payload };
+      return { ...state, displayModal: action.payload };
     default:
       throw new Error(
         `Tried to reduce with unsupported action type: ${action.type}`
       );
   }
 }
+const API_URL = "http://localhost:8001/api";
 
 const useApplicationData = () => {
   const [state, dispatch] = useReducer( reducer, initialState);
-  const updateToFavPhotoIds = (photoId) => {
+  
+  const toggleFavorite = (photoId) => {
     if (state.favoritePhotos.includes(photoId)) {
       dispatch({ type: ACTIONS.FAV_PHOTO_REMOVED, payload: photoId });
     } else {
       dispatch({ type: ACTIONS.FAV_PHOTO_ADDED, payload: photoId });
     }
   };
+
   const handlePhotoClick = (photo) => {
-    dispatch({ type: ACTIONS.SELECT_PHOTO, payload: photo });
+    if (photo.similar_photos) {
+      dispatch({ type: ACTIONS.SET_SINGLE_PHOTO_DETAIL, payload: photo });
+    } else {
+      const matchedPhoto = state.photoData.find(p => p.id === photo.id);
+      dispatch({ type: ACTIONS.SET_SINGLE_PHOTO_DETAIL, payload: matchedPhoto });
+    }
     dispatch({ type: ACTIONS.DISPLAY_PHOTO_DETAILS, payload: true });
   };
-
   const closeModal = () => {
     dispatch({ type: ACTIONS.DISPLAY_PHOTO_DETAILS, payload: false });
   };
-  const getPhotos = () => {
-    fetch("http://localhost:8001/api/photos")
+
+  const getPhotosByTopic = (topic_id) => {
+    fetch(`${API_URL}/topics/photos/${topic_id}`)
       .then((res) => res.json())
       .then((photoData) => {
-        console.log(photoData); // Log the fetched data
+        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: photoData });
+      })
+      .catch((error) => console.error('Error:', error));
+  }
+  const getPhotos = () => {
+    fetch(`${API_URL}/photos`)
+      .then((res) => res.json())
+      .then((photoData) => {
         dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: photoData });
       });
   }
-  useEffect(() => {
-    getPhotos();
-  }, []);
+  
   const getTopics = () => {
-    fetch("http://localhost:8001/api/topics")
+    fetch(`${API_URL}/topics`)
       .then((res) => res.json())
       .then((topicData) => {
-        console.log(topicData); // Log the fetched data
         dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: topicData });
       });
   }
   useEffect(() => {
     getTopics();
   }, []);
-
-  const getPhotosByTopic = (topic_id) => {
-    fetch(`http://localhost:8001/api/topics/photos/${topic_id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data); // Log the fetched data
-        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data });
-      })
-      .catch((error) => console.error('Error:', error));
-  }
+  useEffect(() => {
+    getPhotos();
+  }, []);
 
   return {
     state,
-    updateToFavPhotoIds,
+    toggleFavorite,
     closeModal,
     handlePhotoClick,
-    getPhotosByTopic
+    getPhotosByTopic,
   };
 };
 
