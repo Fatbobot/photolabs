@@ -8,7 +8,8 @@ Whether you're a professional photographer, a casual browser, or a fellow develo
 
 # Photolabs
 ![Screenshot of the homepage displaying a grid of various photos](./frontend/src/assets/modalScreenshot.png)
-![Screenshot of a modal view displaying an enlarged version of a selected photo](./frontend/src/assets/photolabsHomePageScreenshot.png)
+
+![Screenshot of a modal view displaying an enlarged version of a selected photo](./frontend/src/assets/photolabsHomepageScreenshot.png)
 ## Setup
 
 Install dependencies with `npm install` in each respective `/frontend` and `/backend`.
